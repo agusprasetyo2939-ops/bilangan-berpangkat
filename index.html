@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul & Simulasi Interaktif Bilangan Berpangkat (Eksponen)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- KaTeX for LaTeX Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- Chart.js for Exponential Graph Simulation -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .tab-btn.active {
+            border-bottom: 3px solid #3b82f6;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+        .accordion-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-3 bg-white/10 rounded-xl">
+                    <i class="fa-solid fa-square-root-variable text-3xl text-yellow-300"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wide">Bilangan Berpangkat (Eksponen)</h1>
+                    <p class="text-xs text-blue-200">Modul Pembelajaran Interaktif & Simulation Suite TKA</p>
+                </div>
+            </div>
+            <!-- Navigation Tabs -->
+            <nav class="flex flex-wrap gap-2 bg-black/20 p-1.5 rounded-xl text-sm">
+                <button onclick="switchTab('materi')" id="tab-materi" class="tab-btn px-4 py-2 rounded-lg text-white hover:bg-white/10 transition active">
+                    <i class="fa-solid fa-book-open mr-2"></i>Materi Utuh
+                </button>
+                <button onclick="switchTab('simulasi')" id="tab-simulasi" class="tab-btn px-4 py-2 rounded-lg text-white hover:bg-white/10 transition">
+                    <i class="fa-solid fa-flask mr-2"></i>Simulasi Interaktif
+                </button>
+                <button onclick="switchTab('strategi')" id="tab-strategi" class="tab-btn px-4 py-2 rounded-lg text-white hover:bg-white/10 transition">
+                    <i class="fa-solid fa-lightbulb mr-2"></i>Trik & Strategi TKA
+                </button>
+                <button onclick="switchTab('kuis')" id="tab-kuis" class="tab-btn px-4 py-2 rounded-lg text-white hover:bg-white/10 transition">
+                    <i class="fa-solid fa-gamepad mr-2"></i>Kuis & Latihan Soal
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- ================= TAB 1: MATERI LENGKAP UTUH ================= -->
+        <section id="sec-materi" class="space-y-8">
+            <!-- Header Section -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800"><i class="fa-solid fa-layer-group text-blue-600 mr-2"></i>Materi Lengkap Akselerasi TKA</h2>
+                    <p class="text-sm text-slate-500 mt-1">Sesuai dokumen kurikulum Bilangan Berpangkat lengkap tanpa disingkat (Bagian A - O).</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="expandAllSections()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border transition">
+                        <i class="fa-solid fa-angles-down mr-1"></i>Buka Semua
+                    </button>
+                    <button onclick="collapseAllSections()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border transition">
+                        <i class="fa-solid fa-angles-up mr-1"></i>Tutup Semua
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Accordion Sections -->
+            <div class="space-y-4">
+
+                <!-- SECTION A -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-a')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">A</span> Pengertian Bilangan Berpangkat</span>
+                        <i id="icon-acc-a" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-a" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700 leading-relaxed">
+                            <strong>Bilangan berpangkat</strong> adalah perkalian berulang dari suatu bilangan yang sama.
+                        </p>
+                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600">
+                            <p class="font-bold text-blue-900">Bentuk Umum:</p>
+                            <p class="text-xl my-2 text-center text-blue-950">$$a^n = \underbrace{a \times a \times a \times \dots \times a}_{\text{sebanyak } n \text{ faktor}}$$</p>
+                            <ul class="list-disc list-inside text-sm text-blue-800 space-y-1">
+                                <li class="tex-target">$a$ = bilangan pokok / basis</li>
+                                <li class="tex-target">$n$ = pangkat / eksponen</li>
+                            </ul>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <p class="font-bold text-slate-700 mb-2">Contoh:</p>
+                                <p class="tex-target">$2^4 = 2 \times 2 \times 2 \times 2 = 16$</p>
+                                <p class="tex-target">$5^3 = 5 \times 5 \times 5 = 125$</p>
+                            </div>
+                            <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 text-amber-900">
+                                <p class="font-bold text-amber-800 mb-1"><i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1"></i> Ingat!</p>
+                                <p class="tex-target">$3^4 \neq 3 \times 4$</p>
+                                <p class="text-sm mt-1">Tetapi:</p>
+                                <p class="tex-target font-semibold">$3^4 = 3 \times 3 \times 3 \times 3 = 81$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION B -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-b')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">B</span> Sifat-Sifat Bilangan Berpangkat: Perkalian Basis Sama</span>
+                        <i id="icon-acc-b" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-b" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Jika basisnya sama, pada operasi perkalian pangkatnya <strong>dijumlahkan</strong>:</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600">
+                            <p class="text-xl text-center text-blue-900">$$a^m \times a^n = a^{m+n}$$</p>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <p class="font-bold text-slate-700 mb-2">Contoh Standar:</p>
+                                <p class="tex-target">$2^3 \times 2^4 = 2^{3+4} = 2^7 = 128$</p>
+                                <p class="tex-target">$3^2 \times 3^5 = 3^{2+5} = 3^7 = 2187$</p>
+                            </div>
+                            <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-200">
+                                <p class="font-bold text-indigo-900 mb-2"><i class="fa-solid fa-bullseye text-indigo-600 mr-1"></i> Tipe Soal TKA:</p>
+                                <p class="tex-target">$2^5 \times 2^3 = ?$</p>
+                                <p class="text-sm text-indigo-800 mt-2"><strong>Jawab:</strong> $2^{5+3} = 2^8 = 256$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION C -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-c')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">C</span> Pembagian Bilangan Berpangkat</span>
+                        <i id="icon-acc-c" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-c" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Jika basisnya sama, pada operasi pembagian pangkatnya <strong>dikurangi</strong>:</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600">
+                            <p class="text-xl text-center text-blue-900">$$\frac{a^m}{a^n} = a^{m-n} \quad \text{dengan } a \neq 0$$</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <p class="font-bold text-slate-700 mb-2">Contoh:</p>
+                            <p class="tex-target">$$\frac{5^7}{5^3} = 5^{7-3} = 5^4$$</p>
+                            <p class="text-slate-700 mt-2">Jadi: $5^4 = 625$</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION D -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-d')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">D</span> Pangkat dari Pangkat</span>
+                        <i id="icon-acc-d" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-d" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Jika suatu bilangan berpangkat dipangkatkan lagi, maka pangkatnya <strong>dikalikan</strong>:</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600">
+                            <p class="text-xl text-center text-blue-900">$$(a^m)^n = a^{m \times n}$$</p>
+                        </div>
+                        <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                            <p class="font-bold text-amber-900 mb-1">Contoh:</p>
+                            <p class="tex-target">$$(2^3)^4 = 2^{3 \times 4} = 2^{12} = 4096$$</p>
+                            <p class="text-xs text-amber-800 mt-2 font-semibold"><i class="fa-solid fa-circle-exclamation mr-1"></i> Perhatikan: pangkat dikalikan, bukan dijumlahkan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION E & F -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-ef')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">E & F</span> Pangkat pada Perkalian & Pecahan</span>
+                        <i id="icon-acc-ef" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-ef" class="p-6 border-t border-slate-100 space-y-6 hidden">
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-2">E. Pangkat pada Perkalian</h4>
+                            <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-600 mb-3">
+                                <p class="text-center text-blue-900">$$(a \times b)^n = a^n \times b^n$$</p>
+                            </div>
+                            <p class="tex-target">Contoh: $(2 \times 3)^4 = 2^4 \times 3^4 = 16 \times 81 = 1296$</p>
+                        </div>
+                        <hr>
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-2">F. Pangkat pada Pecahan</h4>
+                            <div class="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-600 mb-3">
+                                <p class="text-center text-blue-900">$$\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$$</p>
+                            </div>
+                            <p class="tex-target">Contoh: $$\left(\frac{2}{3}\right)^3 = \frac{2^3}{3^3} = \frac{8}{27}$$</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION G -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-g')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">G</span> Pangkat Nol</span>
+                        <i id="icon-acc-g" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-g" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Untuk $a \neq 0$, setiap bilangan berpangkat $0$ nilainya adalah $1$:</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600 text-center">
+                            <p class="text-xl text-blue-900">$$a^0 = 1$$</p>
+                        </div>
+                        <p class="tex-target">Contoh: $5^0 = 1$, $1000^0 = 1$, $(-7)^0 = 1$</p>
+                        <div class="bg-red-50 p-4 rounded-xl border border-red-200 text-red-900">
+                            <p class="font-bold text-red-800"><i class="fa-solid fa-skull-crossbones mr-1"></i> Jebakan TKA ⚠️</p>
+                            <p class="text-sm mt-1">Jangan menganggap $a^0 = 0$. Yang benar: <strong>$a^0 = 1$ selama $a \neq 0$</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION H -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-h')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">H</span> Pangkat Negatif</span>
+                        <i id="icon-acc-h" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-h" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Pangkat negatif dapat diubah menjadi bentuk pecahan bernilai positif:</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600">
+                            <p class="text-xl text-center text-blue-900">$$a^{-n} = \frac{1}{a^n}$$</p>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <p class="font-bold text-slate-700 mb-2">Contoh Dasar:</p>
+                                <p class="tex-target">$2^{-3} = \frac{1}{2^3} = \frac{1}{8}$</p>
+                                <p class="tex-target">$5^{-2} = \frac{1}{5^2} = \frac{1}{25}$</p>
+                            </div>
+                            <div class="p-4 bg-purple-50 rounded-xl border border-purple-200">
+                                <p class="font-bold text-purple-900 mb-2">Jika berbentuk pecahan:</p>
+                                <p class="tex-target">$$\left(\frac{2}{3}\right)^{-2} = \left(\frac{3}{2}\right)^2 = \frac{9}{4}$$</p>
+                                <p class="text-xs text-purple-800 mt-2 font-semibold">⚡ Trik cepat: Pangkat negatif &rarr; balik pecahan &rarr; pangkat menjadi positif.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION I -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-i')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">I</span> Pangkat Pecahan & Bentuk Akar</span>
+                        <i id="icon-acc-i" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-i" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Pangkat pecahan berkaitan langsung dengan bentuk akar:</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600">
+                                <p class="text-center text-blue-900 font-bold">Pangkat Pecahan $1/n$</p>
+                                <p class="text-lg text-center text-blue-900 my-2">$$a^{\frac{1}{n}} = \sqrt[n]{a}$$</p>
+                                <p class="tex-target text-sm text-center">$16^{\frac{1}{2}} = \sqrt{16} = 4$</p>
+                                <p class="tex-target text-sm text-center">$27^{\frac{1}{3}} = \sqrt[3]{27} = 3$</p>
+                            </div>
+                            <div class="bg-indigo-50 p-4 rounded-xl border-l-4 border-indigo-600">
+                                <p class="text-center text-indigo-900 font-bold">Pangkat Pecahan $m/n$</p>
+                                <p class="text-lg text-center text-indigo-900 my-2">$$a^{\frac{m}{n}} = \sqrt[n]{a^m}$$</p>
+                                <p class="tex-target text-sm text-center">$8^{\frac{2}{3}} = \sqrt[3]{8^2} = \sqrt[3]{64} = 4$</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION J -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-j')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">J</span> Mengubah Bilangan ke Bentuk Pangkat (Penting TKA)</span>
+                        <i id="icon-acc-j" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-j" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Ini sangat penting untuk TKA karena sering digunakan untuk menyederhanakan perhitungan.</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-center">
+                            <div class="p-3 bg-slate-100 rounded-lg"><span class="block text-xs text-slate-500">16</span><span class="font-bold text-blue-600">$2^4$</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><span class="block text-xs text-slate-500">32</span><span class="font-bold text-blue-600">$2^5$</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><span class="block text-xs text-slate-500">64</span><span class="font-bold text-blue-600">$2^6$</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><span class="block text-xs text-slate-500">81</span><span class="font-bold text-blue-600">$3^4$</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><span class="block text-xs text-slate-500">125</span><span class="font-bold text-blue-600">$5^3$</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><span class="block text-xs text-slate-500">1000</span><span class="font-bold text-blue-600">$10^3$</span></div>
+                        </div>
+                        <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200">
+                            <p class="font-bold text-emerald-900 mb-2"><i class="fa-solid fa-square-check text-emerald-600 mr-1"></i> Contoh Soal Penyeleksian Basis:</p>
+                            <p class="tex-target">Sederhanakan: $$\frac{32 \times 8^4}{2^2}$$</p>
+                            <p class="text-sm text-emerald-800 mt-2">Ubah semuanya menjadi basis 2:</p>
+                            <p class="tex-target font-semibold">$$\frac{2^5 \times (2^3)^4}{2^2} = \frac{2^5 \times 2^{12}}{2^2} = \frac{2^{17}}{2^2} = 2^{15}$$</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION K -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-k')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">K</span> Pangkat Bilangan Negatif</span>
+                        <i id="icon-acc-k" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-k" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Ini salah satu jebakan penting yang sering muncul pada tes!</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-green-50 rounded-xl border border-green-200">
+                                <p class="font-bold text-green-900">1. Pangkat Genap</p>
+                                <p class="tex-target mt-1">$(-2)^4 = 16$</p>
+                                <p class="text-xs text-green-700 mt-1">Hasilnya selalu <strong>positif</strong>.</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-xl border border-red-200">
+                                <p class="font-bold text-red-900">2. Pangkat Ganjil</p>
+                                <p class="tex-target mt-1">$(-2)^3 = -8$</p>
+                                <p class="text-xs text-red-700 mt-1">Hasilnya tetap <strong>negatif</strong>.</p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-amber-50 rounded-xl border-l-4 border-amber-500">
+                            <p class="font-bold text-amber-900"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Hati-hati dengan tanda kurung!</p>
+                            <p class="tex-target mt-1">$(-2)^4 = 16$ tetapi $-2^4 = -16$</p>
+                            <p class="text-xs text-amber-800 mt-1">Karena pada $-2^4$, tanda negatif bukan bagian dari bilangan yang dipangkatkan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION L -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-l')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">L</span> Membandingkan Bilangan Berpangkat</span>
+                        <i id="icon-acc-l" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-l" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">TKA dapat meminta kita menentukan bilangan mana yang lebih besar.</p>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <p class="font-bold text-slate-800">Contoh 1: Mana yang lebih besar? $2^{10}$ dan $4^5$</p>
+                            <p class="text-sm">Ubah $4$ menjadi $2^2$:</p>
+                            <p class="tex-target">$4^5 = (2^2)^5 = 2^{10}$</p>
+                            <p class="text-sm font-semibold text-blue-700">Jadi: $2^{10} = 4^5$</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <p class="font-bold text-slate-800">Contoh Lebih Menantang: Manakah yang lebih besar? $3^8$ atau $9^4$</p>
+                            <p class="text-sm">Karena $9 = 3^2$, maka:</p>
+                            <p class="tex-target">$9^4 = (3^2)^4 = 3^8$</p>
+                            <p class="text-sm font-semibold text-blue-700">Jadi keduanya sama besar ($3^8 = 9^4$).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION M -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-m')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">M</span> Notasi Ilmiah (Bentuk Baku)</span>
+                        <i id="icon-acc-m" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-m" class="p-6 border-t border-slate-100 space-y-4 hidden">
+                        <p class="text-slate-700">Bilangan yang sangat besar atau sangat kecil dapat ditulis dalam bentuk:</p>
+                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-600 text-center">
+                            <p class="text-xl text-blue-900">$$a \times 10^n \quad \text{dengan } 1 \le a < 10$$</p>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 text-center">
+                            <div class="p-3 bg-slate-50 rounded-lg border"><p class="text-xs text-slate-500">3.000.000</p><p class="font-bold text-blue-600">$3 \times 10^6$</p></div>
+                            <div class="p-3 bg-slate-50 rounded-lg border"><p class="text-xs text-slate-500">45.000</p><p class="font-bold text-blue-600">$4,5 \times 10^4$</p></div>
+                            <div class="p-3 bg-slate-50 rounded-lg border"><p class="text-xs text-slate-500">0,00032</p><p class="font-bold text-blue-600">$3,2 \times 10^{-4}$</p></div>
+                        </div>
+                        <p class="text-xs text-slate-500">Materi ini penting karena dapat muncul dalam soal sains, data, jarak, ukuran, dan perbandingan.</p>
+                    </div>
+                </div>
+
+                <!-- SECTION O -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('acc-o')" class="w-full px-6 py-4 text-left font-semibold text-lg flex justify-between items-center bg-slate-50 hover:bg-blue-50/50 transition">
+                        <span><span class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full mr-2">O</span> Ringkasan Rumus Wajib Hafal</span>
+                        <i id="icon-acc-o" class="fa-solid fa-chevron-down text-slate-400"></i>
+                    </button>
+                    <div id="acc-o" class="p-6 border-t border-slate-100 overflow-x-auto hidden">
+                        <table class="w-full text-left border-collapse min-w-[500px]">
+                            <thead>
+                                <tr class="bg-blue-600 text-white text-sm">
+                                    <th class="p-3 rounded-tl-lg">Sifat Operasi</th>
+                                    <th class="p-3 rounded-tr-lg">Rumus Eksponen</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 text-sm">
+                                <tr><td class="p-3 font-semibold text-slate-700">Perkalian Basis Sama</td><td class="p-3 text-blue-700 font-bold">$a^m \cdot a^n = a^{m+n}$</td></tr>
+                                <tr><td class="p-3 font-semibold text-slate-700">Pembagian Basis Sama</td><td class="p-3 text-blue-700 font-bold">$\frac{a^m}{a^n} = a^{m-n}$</td></tr>
+                                <tr><td class="p-3 font-semibold text-slate-700">Pangkat Dipangkatkan</td><td class="p-3 text-blue-700 font-bold">$(a^m)^n = a^{m \cdot n}$</td></tr>
+                                <tr><td class="p-3 font-semibold text-slate-700">Pangkat Perkalian</td><td class="p-3 text-blue-700 font-bold">$(a \cdot b)^n = a^n \cdot b^n$</td></tr>
+                                <tr><td class="p-3 font-semibold text-slate-700">Pangkat Pecahan/Pembagian</td><td class="p-3 text-blue-700 font-bold">$\left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$</td></tr>
+                                <tr><td class="p-3 font-semibold text-slate-700">Pangkat Nol</td><td class="p-3 text-blue-700 font-bold">$a^0 = 1 \quad (a \neq 0)$</td></tr>
+                                <tr><td class="p-3 font-semibold text-slate-700">Pangkat Negatif</td><td class="p-3 text-blue-700 font-bold">$a^{-n} = \frac{1}{a^n}$</td></tr>
+                                <tr><td class="p-3 font-semibold text-slate-700">Pangkat Pecahan (Bentuk Akar)</td><td class="p-3 text-blue-700 font-bold">$a^{\frac{m}{n}} = \sqrt[n]{a^m}$</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: SIMULASI INTERAKTIF SUITE ================= -->
+        <section id="sec-simulasi" class="space-y-8 hidden">
+
+            <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 text-white rounded-2xl p-6 shadow-xl">
+                <h2 class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid fa-flask text-yellow-400"></i> Virtual Eksponen Lab & Visualisator</h2>
+                <p class="text-blue-200 text-sm mt-1">Uji, visualisasikan, dan hitung sifat-sifat bilangan berpangkat secara real-time.</p>
+            </div>
+
+            <!-- SIMULATOR 1: Visualisator Perkalian Berulang & Grafik -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-3 mb-4 flex items-center gap-2">
+                    <span class="bg-blue-100 text-blue-700 w-7 h-7 rounded-full flex items-center justify-center text-xs">1</span>
+                    Visualisator Perkalian Berulang & Grafik $y = a^x$
+                </h3>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Controls & Output -->
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Bilangan Basis ($a$): <span id="val-a" class="text-blue-600 font-bold">2</span></label>
+                            <input type="range" id="slider-a" min="-5" max="5" value="2" step="1" oninput="updateExpVisualizer()" class="w-full accent-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Pangkat/Eksponen ($n$): <span id="val-n" class="text-blue-600 font-bold">4</span></label>
+                            <input type="range" id="slider-n" min="-4" max="6" value="4" step="1" oninput="updateExpVisualizer()" class="w-full accent-blue-600">
+                        </div>
+
+                        <!-- Expansion Display Box -->
+                        <div class="p-4 bg-slate-900 text-green-400 rounded-xl font-mono text-sm space-y-2 shadow-inner">
+                            <p class="text-slate-400 text-xs">// Bentuk Notasi:</p>
+                            <p id="vis-notasi" class="text-lg font-bold text-yellow-300">2⁴</p>
+                            <p class="text-slate-400 text-xs mt-2">// Perkalian Berulang:</p>
+                            <p id="vis-ekspansi" class="text-white">2 × 2 × 2 × 2</p>
+                            <p class="text-slate-400 text-xs mt-2">// Hasil Akhir:</p>
+                            <p id="vis-hasil" class="text-xl font-bold text-emerald-400">16</p>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Chart -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-center">
+                        <p class="text-xs text-slate-500 font-semibold mb-2 text-center">Kurva Pertumbuhan / Peluruhan Eksponensial $y = a^x$</p>
+                        <div class="relative h-64">
+                            <canvas id="chartEksponen"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 2: Step-by-Step Solver Sifat Eksponen -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-3 mb-4 flex items-center gap-2">
+                    <span class="bg-blue-100 text-blue-700 w-7 h-7 rounded-full flex items-center justify-center text-xs">2</span>
+                    Kalkulator & Pembukti Sifat Eksponen (Step-by-Step)
+                </h3>
+
+                <div class="grid md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Pilih Sifat Operasi</label>
+                        <select id="sim-sifat" onchange="runSifatSim()" class="w-full p-2.5 border rounded-lg bg-slate-50 text-sm font-medium">
+                            <option value="perkalian">Perkalian Basis Sama (a^m * a^n)</option>
+                            <option value="pembagian">Pembagian Basis Sama (a^m / a^n)</option>
+                            <option value="pangkat_pangkat">Pangkat dipangkatkan ((a^m)^n)</option>
+                            <option value="pangkat_nol">Pangkat Nol (a^0)</option>
+                            <option value="pangkat_negatif">Pangkat Negatif (a^-n)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Basis ($a$)</label>
+                        <input type="number" id="sim-input-a" value="3" oninput="runSifatSim()" class="w-full p-2 border rounded-lg text-sm">
+                    </div>
+                    <div id="box-input-m">
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Pangkat Pertama ($m$)</label>
+                        <input type="number" id="sim-input-m" value="4" oninput="runSifatSim()" class="w-full p-2 border rounded-lg text-sm">
+                    </div>
+                </div>
+
+                <div id="box-input-n" class="mb-4">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Pangkat Kedua ($n$)</label>
+                    <input type="number" id="sim-input-n" value="2" oninput="runSifatSim()" class="w-full p-2 border rounded-lg text-sm max-w-xs">
+                </div>
+
+                <!-- Step-by-Step Proof Result -->
+                <div class="bg-indigo-50/70 p-5 rounded-xl border border-indigo-200">
+                    <h4 class="font-bold text-indigo-900 text-sm mb-2"><i class="fa-solid fa-list-check mr-1"></i> Langkah Penyelesaian Otomatis:</h4>
+                    <div id="sifat-steps" class="space-y-2 text-slate-800 text-sm">
+                        <!-- Dynamic Steps JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 3: Pembanding Bilangan Berpangkat Besar -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-3 mb-4 flex items-center gap-2">
+                    <span class="bg-blue-100 text-blue-700 w-7 h-7 rounded-full flex items-center justify-center text-xs">3</span>
+                    Simulator Penyelaras Basis & Pembanding Bilangan Besar
+                </h3>
+                <p class="text-xs text-slate-500 mb-4">Uji Strategi 1 TKA: Masukkan dua bilangan berbentuk $a^b$ dan $c^d$ untuk disamakan basisnya dan dibandingkan nilainya secara otomatis.</p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-slate-50 rounded-xl border space-y-3">
+                        <h4 class="font-bold text-slate-700 text-sm">Bilangan Pertama (A)</h4>
+                        <div class="flex gap-2 items-center">
+                            <input type="number" id="comp-base-1" value="4" class="w-1/2 p-2 border rounded-lg text-sm" placeholder="Basis (misal 4)">
+                            <span>pangkat</span>
+                            <input type="number" id="comp-exp-1" value="5" class="w-1/2 p-2 border rounded-lg text-sm" placeholder="Pangkat (misal 5)">
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border space-y-3">
+                        <h4 class="font-bold text-slate-700 text-sm">Bilangan Kedua (B)</h4>
+                        <div class="flex gap-2 items-center">
+                            <input type="number" id="comp-base-2" value="8" class="w-1/2 p-2 border rounded-lg text-sm" placeholder="Basis (misal 8)">
+                            <span>pangkat</span>
+                            <input type="number" id="comp-exp-2" value="3" class="w-1/2 p-2 border rounded-lg text-sm" placeholder="Pangkat (misal 3)">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="compareExponents()" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl transition text-sm">
+                    <i class="fa-solid fa-calculator mr-2"></i>Bandingkan & Samakan Basis
+                </button>
+
+                <div id="compare-result" class="mt-4 p-4 bg-emerald-50 rounded-xl border border-emerald-200 hidden">
+                    <!-- Results from JS -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= TAB 3: TRIK & STRATEGI TKA ================= -->
+        <section id="sec-strategi" class="space-y-8 hidden">
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2"><i class="fa-solid fa-brain text-yellow-500 mr-2"></i>Strategi Cepat Menghadapi Soal TKA</h2>
+                <p class="text-slate-500 text-sm">Metode penyelesaian efisien untuk menghemat waktu saat ujian (Sesuai Dokumen Bagian N).</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Strategi 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-blue-600 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="p-2 bg-blue-100 text-blue-700 rounded-lg text-lg"><i class="fa-solid fa-equals"></i></span>
+                        <h3 class="font-bold text-slate-800">Strategi 1 — Samakan Basis</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Jika menemukan bilangan dengan basis berbeda seperti $4^5$, $8^3$, $16^2$, segera ubah menjadi basis prima terkecil (misal basis 2):
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg text-xs space-y-1 font-mono">
+                        <p>4⁵ = (2²)⁵ = 2¹⁰</p>
+                        <p>8³ = (2³)³ = 2⁹</p>
+                        <p>16² = (2⁴)² = 2⁸</p>
+                    </div>
+                    <p class="text-xs font-semibold text-emerald-600">Urutan dengan mudah: 2¹⁰ > 2⁹ > 2⁸ (4⁵ > 8³ > 16²)</p>
+                </div>
+
+                <!-- Strategi 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-indigo-600 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="p-2 bg-indigo-100 text-indigo-700 rounded-lg text-lg"><i class="fa-solid fa-ban-smoke"></i></span>
+                        <h3 class="font-bold text-slate-800">Strategi 2 — Jangan Langsung Hitung Angka Besar</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Misalnya terdapat bentuk:
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg text-xs font-mono text-center">
+                        $$\frac{2^{20} \times 2^5}{2^{10}}$$
+                    </div>
+                    <p class="text-xs text-slate-600">Tidak perlu menghitung nilai $2^{20}$. Gunakan langsung sifat penjumlahan dan pengurangan pangkat:</p>
+                    <p class="text-xs font-bold text-indigo-700 text-center">$2^{20+5-10} = 2^{15}$</p>
+                </div>
+
+                <!-- Strategi 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-purple-600 space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="p-2 bg-purple-100 text-purple-700 rounded-lg text-lg"><i class="fa-solid fa-diagram-project"></i></span>
+                        <h3 class="font-bold text-slate-800">Strategi 3 — Cari Pola / Faktorkan</h3>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Contoh penjumlahan berulang: $2^2 + 2^3 + 2^4$. Faktorkan berpangkat terkecil $2^2$:
+                    </p>
+                    <div class="bg-slate-50 p-3 rounded-lg text-xs font-mono space-y-1">
+                        <p>2²(1 + 2 + 4) = 4 × 7 = 28</p>
+                    </div>
+                    <p class="text-xs text-purple-700 font-semibold">Trik faktorisasi sangat efektif menghancurkan soal penjumlahan berpangkat!</p>
+                </div>
+            </div>
+
+            <!-- PETA MATERI TKA -->
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+                <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-map text-blue-600"></i> Peta Level Materi Persiapan TKA</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border">
+                        <span class="px-3 py-1 bg-blue-600 text-white font-bold text-xs rounded-lg">Level 1</span>
+                        <div><p class="font-semibold text-sm text-slate-800">Dasar</p><p class="text-xs text-slate-500">Pengertian pangkat, perkalian berulang, menentukan nilai pangkat dasar.</p></div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border">
+                        <span class="px-3 py-1 bg-indigo-600 text-white font-bold text-xs rounded-lg">Level 2</span>
+                        <div><p class="font-semibold text-sm text-slate-800">Sifat Pangkat</p><p class="text-xs text-slate-500">Perkalian, pembagian, pangkat dari pangkat, dan pangkat nol.</p></div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border">
+                        <span class="px-3 py-1 bg-purple-600 text-white font-bold text-xs rounded-lg">Level 3</span>
+                        <div><p class="font-semibold text-sm text-slate-800">Pengembangan</p><p class="text-xs text-slate-500">Pangkat negatif, pangkat pecahan, bilangan negatif, bentuk akar.</p></div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border">
+                        <span class="px-3 py-1 bg-amber-600 text-white font-bold text-xs rounded-lg">Level 4</span>
+                        <div><p class="font-semibold text-sm text-slate-800">Penalaran TKA</p><p class="text-xs text-slate-500">Menyamakan basis, membandingkan bilangan berpangkat, mencari nilai variabel, pola bilangan.</p></div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border">
+                        <span class="px-3 py-1 bg-emerald-600 text-white font-bold text-xs rounded-lg">Level 5</span>
+                        <div><p class="font-semibold text-sm text-slate-800">HOTS</p><p class="text-xs text-slate-500">Masalah kontekstual, notasi ilmiah, perbandingan pertumbuhan, dan analisa data.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: KUIS & LATIHAN SOAL TKA ================= -->
+        <section id="sec-kuis" class="space-y-8 hidden">
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800"><i class="fa-solid fa-gamepad text-purple-600 mr-2"></i>Simulasi Kuis Model TKA (Soal 1 - 5)</h2>
+                    <p class="text-slate-500 text-sm mt-1">Uji pemahamanmu secara langsung dengan kunci jawaban dan pembahasan otomatis.</p>
+                </div>
+                <div class="bg-purple-50 text-purple-800 px-4 py-2 rounded-xl border border-purple-200 text-sm font-bold">
+                    Skor: <span id="quiz-score">0</span> / 5
+                </div>
+            </div>
+
+            <!-- Quiz Questions List -->
+            <div id="quiz-container" class="space-y-6">
+                <!-- Dynamic Quiz Loaded via JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 text-center text-xs border-t border-slate-800">
+        <p>© Modul & Simulasi Interaktif Bilangan Berpangkat — Disesuaikan Utuh Berdasarkan Dokumen Pembelajaran TKA.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Data Soal dari Dokumen (Bagian P: Contoh Soal Model TKA)
+        const quizData = [
+            {
+                id: 1,
+                level: "Pemahaman",
+                question: "Nilai dari $$2^4 \\times 2^3$$ adalah...",
+                options: ["32", "64", "128", "256"],
+                correct: 2,
+                pembahasan: "Menggunakan sifat perkalian basis sama: $$2^4 \\times 2^3 = 2^{4+3} = 2^7 = 128$$."
+            },
+            {
+                id: 2,
+                level: "Penalaran",
+                question: "Nilai dari $$\\frac{3^5 \\times 3^2}{3^4}$$ adalah...",
+                options: ["3", "9", "27", "81"],
+                correct: 2,
+                pembahasan: "Menggunakan gabungan sifat perkalian dan pembagian: $$3^{5+2-4} = 3^3 = 27$$."
+            },
+            {
+                id: 3,
+                level: "HOTS",
+                question: "Diketahui $$A = 2^{12}$$ dan $$B = 4^6$$. Hubungan antara A dan B adalah...",
+                options: ["A > B", "A < B", "A = B", "Tidak dapat ditentukan"],
+                correct: 2,
+                pembahasan: "Ubah B menjadi basis 2: $$4^6 = (2^2)^6 = 2^{12}$$. Karena $$A = 2^{12}$$ dan $$B = 2^{12}$$, maka $$A = B$$."
+            },
+            {
+                id: 4,
+                level: "Tantangan",
+                question: "Tentukan nilai dari $$\\frac{2^{10} + 2^{10} + 2^{10} + 2^{10}}{2^8}$$",
+                options: ["8", "12", "16", "32"],
+                correct: 2,
+                pembahasan: "Jangan langsung menghitung $$2^{10}$$. Penjumlahan 4 suku identik: $$4 \\times 2^{10} = 2^2 \\times 2^{10} = 2^{12}$$. Maka $$\\frac{2^{12}}{2^8} = 2^{12-8} = 2^4 = 16$$."
+            },
+            {
+                id: 5,
+                level: "HOTS",
+                question: "Jika $$2^x = 32$$, maka nilai $$x + 3$$ adalah...",
+                options: ["5", "6", "7", "8"],
+                correct: 3,
+                pembahasan: "Ubah 32 ke basis 2: $$32 = 2^5 \\implies x = 5$$. Maka nilai $$x + 3 = 5 + 3 = 8$$."
+            }
+        ];
+
+        let userScore = 0;
+        let answeredQuestions = new Set();
+        let expChart = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ]
+            });
+            initChart();
+            updateExpVisualizer();
+            runSifatSim();
+            loadQuiz();
+        });
+
+        // Tab Switcher
+        function switchTab(tabName) {
+            ['materi', 'simulasi', 'strategi', 'kuis'].forEach(t => {
+                document.getElementById(`sec-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('active', 'bg-white/20');
+            });
+            document.getElementById(`sec-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.add('active', 'bg-white/20');
+
+            if(tabName === 'simulasi' && expChart) {
+                setTimeout(() => expChart.resize(), 100);
+            }
+        }
+
+        // Accordion Controls
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+            } else {
+                el.classList.add('hidden');
+                icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            }
+        }
+
+        function expandAllSections() {
+            document.querySelectorAll('[id^="acc-"]').forEach(el => el.classList.remove('hidden'));
+            document.querySelectorAll('[id^="icon-acc-"]').forEach(el => el.classList.replace('fa-chevron-down', 'fa-chevron-up'));
+        }
+
+        function collapseAllSections() {
+            document.querySelectorAll('[id^="acc-"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id^="icon-acc-"]').forEach(el => el.classList.replace('fa-chevron-up', 'fa-chevron-down'));
+        }
+
+        // SIMULATOR 1: Exponential Visualizer & Chart
+        function initChart() {
+            const ctx = document.getElementById('chartEksponen').getContext('2d');
+            expChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [-3, -2, -1, 0, 1, 2, 3, 4],
+                    datasets: [{
+                        label: 'y = a^x',
+                        data: [0.125, 0.25, 0.5, 1, 2, 4, 8, 16],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: false }
+                    }
+                }
+            });
+        }
+
+        function updateExpVisualizer() {
+            const a = parseInt(document.getElementById('slider-a').value);
+            const n = parseInt(document.getElementById('slider-n').value);
+
+            document.getElementById('val-a').innerText = a;
+            document.getElementById('val-n').innerText = n;
+
+            document.getElementById('vis-notasi').innerText = `${a}^(${n})`;
+
+            // Generate Expansion String
+            let expansionStr = "";
+            let finalVal = Math.pow(a, n);
+
+            if (n === 0) {
+                expansionStr = `Setiap bilangan (kecuali 0) dipangkatkan 0 = 1`;
+            } else if (n > 0) {
+                let items = Array(n).fill(a < 0 ? `(${a})` : a);
+                expansionStr = items.join(" × ");
+            } else {
+                let items = Array(Math.abs(n)).fill(a < 0 ? `(${a})` : a);
+                expansionStr = `1 / (${items.join(" × ")})`;
+            }
+
+            document.getElementById('vis-ekspansi').innerText = expansionStr;
+            document.getElementById('vis-hasil').innerText = Number.isInteger(finalVal) ? finalVal : finalVal.toFixed(4);
+
+            // Update Chart Data
+            if (expChart) {
+                let xVals = [-3, -2, -1, 0, 1, 2, 3, 4];
+                let yVals = xVals.map(x => Math.pow(a, x));
+                expChart.data.datasets[0].label = `y = (${a})^x`;
+                expChart.data.datasets[0].data = yVals;
+                expChart.update();
+            }
+        }
+
+        // SIMULATOR 2: Step-by-Step Property Solver
+        function runSifatSim() {
+            const sifat = document.getElementById('sim-sifat').value;
+            const a = parseFloat(document.getElementById('sim-input-a').value) || 1;
+            const m = parseFloat(document.getElementById('sim-input-m').value) || 0;
+            const n = parseFloat(document.getElementById('sim-input-n').value) || 0;
+
+            const boxN = document.getElementById('box-input-n');
+            const boxM = document.getElementById('box-input-m');
+            const container = document.getElementById('sifat-steps');
+
+            if (sifat === 'pangkat_nol' || sifat === 'pangkat_negatif') {
+                boxN.classList.add('hidden');
+            } else {
+                boxN.classList.remove('hidden');
+            }
+
+            let html = "";
+
+            if (sifat === 'perkalian') {
+                html = `
+                    <p class="font-semibold text-blue-700">Rumus: $a^m \\times a^n = a^{m+n}$</p>
+                    <p>1. Identifikasi basis dan pangkat: Basis $a = ${a}$, $m = ${m}$, $n = ${n}$.</p>
+                    <p>2. Jumlahkan pangkat: $${a}^{${m} + ${n}} = ${a}^{${m+n}}$</p>
+                    <p>3. Hasil Akhir: <strong>${Math.pow(a, m+n)}</strong></p>
+                `;
+            } else if (sifat === 'pembagian') {
+                html = `
+                    <p class="font-semibold text-blue-700">Rumus: $\\frac{a^m}{a^n} = a^{m-n}$</p>
+                    <p>1. Identifikasi basis dan pangkat: Basis $a = ${a}$, $m = ${m}$, $n = ${n}$.</p>
+                    <p>2. Kurangi pangkat: $${a}^{${m} - ${n}} = ${a}^{${m-n}}$</p>
+                    <p>3. Hasil Akhir: <strong>${Math.pow(a, m-n)}</strong></p>
+                `;
+            } else if (sifat === 'pangkat_pangkat') {
+                html = `
+                    <p class="font-semibold text-blue-700">Rumus: $(a^m)^n = a^{m \\times n}$</p>
+                    <p>1. Kalikan pangkat dalam dengan pangkat luar: $${m} \\times ${n} = ${m*n}$.</p>
+                    <p>2. Bentuk Sederhana: $${a}^{${m*n}}$</p>
+                    <p>3. Hasil Akhir: <strong>${Math.pow(a, m*n)}</strong></p>
+                `;
+            } else if (sifat === 'pangkat_nol') {
+                html = `
+                    <p class="font-semibold text-blue-700">Rumus: $a^0 = 1$</p>
+                    <p>1. Karena basis $a = ${a} \\neq 0$, maka setiap bilangan dipangkatkan 0 bernilai 1.</p>
+                    <p>2. Hasil Akhir: <strong>1</strong></p>
+                `;
+            } else if (sifat === 'pangkat_negatif') {
+                html = `
+                    <p class="font-semibold text-blue-700">Rumus: $a^{-n} = \\frac{1}{a^n}$</p>
+                    <p>1. Ubah pangkat negatif menjadi penyebut pecahan berpangkat positif: $\\frac{1}{${a}^{${Math.abs(m)}}}$</p>
+                    <p>2. Hasil Akhir: <strong>${(1 / Math.pow(a, Math.abs(m))).toFixed(4)}</strong></p>
+                `;
+            }
+
+            container.innerHTML = html;
+            renderMathInElement(container, {
+                delimiters: [{left: '$', right: '$', display: false}]
+            });
+        }
+
+        // SIMULATOR 3: Exponent Comparator
+        function compareExponents() {
+            const b1 = parseFloat(document.getElementById('comp-base-1').value);
+            const e1 = parseFloat(document.getElementById('comp-exp-1').value);
+            const b2 = parseFloat(document.getElementById('comp-base-2').value);
+            const e2 = parseFloat(document.getElementById('comp-exp-2').value);
+
+            const resDiv = document.getElementById('compare-result');
+            resDiv.classList.remove('hidden');
+
+            const val1 = Math.pow(b1, e1);
+            const val2 = Math.pow(b2, e2);
+
+            let symbol = "=";
+            let relText = "Sama Besar";
+            if (val1 > val2) { symbol = ">"; relText = "A lebih besar dari B"; }
+            else if (val1 < val2) { symbol = "<"; relText = "A lebih kecil dari B"; }
+
+            resDiv.innerHTML = `
+                <h4 class="font-bold text-emerald-900 mb-2"><i class="fa-solid fa-chart-simple mr-1"></i> Hasil Analisis Perbandingan:</h4>
+                <p class="text-sm">Nilai A ($${b1}^{${e1}}$) = <strong>${val1}</strong></p>
+                <p class="text-sm">Nilai B ($${b2}^{${e2}}$) = <strong>${val2}</strong></p>
+                <div class="mt-3 p-3 bg-white rounded-lg border text-center font-bold text-lg text-blue-800">
+                    $${b1}^{${e1}} \\; ${symbol} \\; ${b2}^{${e2}}$ (${relText})
+                </div>
+            `;
+
+            renderMathInElement(resDiv, { delimiters: [{left: '$', right: '$', display: false}] });
+        }
+
+        // QUIZ RENDERER
+        function loadQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = "";
+
+            quizData.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold px-3 py-1 bg-purple-100 text-purple-700 rounded-full">Soal ${q.id} • ${q.level}</span>
+                    </div>
+                    <div class="text-slate-800 font-medium">${q.question}</div>
+                    <div class="grid md:grid-cols-2 gap-3" id="opts-${idx}">
+                        ${q.options.map((opt, oIdx) => `
+                            <button onclick="checkAnswer(${idx}, ${oIdx})" class="p-3 border rounded-xl text-left hover:bg-slate-50 transition font-medium text-sm flex items-center justify-between">
+                                <span>${String.fromCharCode(65 + oIdx)}. ${opt}</span>
+                                <i class="fa-regular fa-circle text-slate-300"></i>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="pembahasan-${idx}" class="p-4 bg-slate-50 rounded-xl border text-sm text-slate-700 hidden">
+                        <p class="font-bold text-blue-800 mb-1"><i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i> Pembahasan:</p>
+                        <p>${q.pembahasan}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            renderMathInElement(container, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ]
+            });
+        }
+
+        function checkAnswer(qIdx, optIdx) {
+            if (answeredQuestions.has(qIdx)) return;
+            answeredQuestions.add(qIdx);
+
+            const q = quizData[qIdx];
+            const optButtons = document.querySelectorAll(`#opts-${qIdx} button`);
+            const pembahasanDiv = document.getElementById(`pembahasan-${qIdx}`);
+
+            if (optIdx === q.correct) {
+                userScore++;
+                optButtons[optIdx].classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+                optButtons[optIdx].querySelector('i').className = "fa-solid fa-circle-check text-emerald-600";
+            } else {
+                optButtons[optIdx].classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+                optButtons[optIdx].querySelector('i').className = "fa-solid fa-circle-xmark text-red-600";
+                
+                // Highlight correct one
+                optButtons[q.correct].classList.add('bg-emerald-50', 'border-emerald-400');
+            }
+
+            document.getElementById('quiz-score').innerText = userScore;
+            pembahasanDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
